@@ -28,16 +28,18 @@ public class AlumnoData {
         try{
             PreparedStatement stmt = con.prepareStatement( query, Statement.RETURN_GENERATED_KEYS );
             // numeracion corresponde a ? ? ?
+            //Recibe parametros del objeto creado en Universidad.java
             stmt.setInt( 1, alumno.getDni() );
             stmt.setString( 2, alumno.getApellido() );
             stmt.setString( 3, alumno.getNombre() );
             stmt.setDate( 4, Date.valueOf( alumno.getFecha_nacimiento() ) );
             stmt.setBoolean( 5, alumno.getEstado() );
             
+            //Ejecuta la consuta
             stmt.executeUpdate();
-            
             ResultSet resultado = stmt.getGeneratedKeys();
             
+            //Resultado.next() - obtiene el id siguiente
             if( resultado.next() ) {
                 // 1 = posicion en db
                 alumno.setId_alumno(resultado.getInt( 1 )); 
@@ -143,17 +145,37 @@ public class AlumnoData {
             }else{
                 JOptionPane.showMessageDialog(null, "ID ingresado invalido");
             }
-            
-            
-
-            
-            
-            stmt.close();
-            
+            stmt.close();            
         }
         catch ( SQLException ex ){
             Logger.getLogger( AlumnoData.class.getName() ).log( Level.SEVERE, null, ex );
         }
     }//.eliminarAlumno()
+    
+    
+    public void habilitarAlumno ( int id_alumno ){
+        String query = "SELECT id_alumno FROM alumno WHERE id_alumno = ?";
+        
+        try{
+            PreparedStatement stmt = con.prepareStatement( query );
+            stmt.setInt( 1, id_alumno);
+            ResultSet resultado = stmt.executeQuery();
+            
+            if ( resultado.next() ){
+                String query_habilitar = "UPDATE alumno SET estado = true WHERE id_alumno = ?";
+                PreparedStatement stmt_habilitar = con.prepareStatement( query_habilitar );
+                stmt_habilitar.setInt( 1, id_alumno);
+                stmt_habilitar.executeUpdate();
+                
+                JOptionPane.showMessageDialog(null, "Alumno habilitado");
+            }else{
+                JOptionPane.showMessageDialog(null, "ID ingresado invalido");
+            }
+            stmt.close();            
+        }
+        catch ( SQLException ex ){
+            Logger.getLogger( AlumnoData.class.getName() ).log( Level.SEVERE, null, ex );
+        }
+    }//.habilitarAlumno()
     
 }

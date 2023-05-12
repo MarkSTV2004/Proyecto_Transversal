@@ -28,10 +28,18 @@ public class universidad {
         */
         
     // <--- Delete --->
-        /**/
+        /*
         Alumno alumno1 = new Alumno ();
         AlumnoData alumno1_Data = new AlumnoData();
         alumno1_Data.eliminarAlumno(2);
+        */
+        
+        
+    // <--- Habilitar --->
+        /**/
+        Alumno alumno1 = new Alumno ();
+        AlumnoData alumno1_Data = new AlumnoData();
+        alumno1_Data.habilitarAlumno(2);
         /**/
 
         
