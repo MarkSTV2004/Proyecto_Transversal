@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 public class Conexion {
     private static final String DATABASE_URL = "jdbc:mariadb://";
     private static final String DATABASE_HOST = "localhost";
+    private static final String DATABASE_PUERTO = ":3306";
     private static final String DATABASE_DB = "/db_universidad";
     private static final String DATABASE_USUARIO = "root";
     private static final String DATABASE_PASSWORD = "";
@@ -37,6 +38,7 @@ public class Conexion {
             con = DriverManager.getConnection(
                     DATABASE_URL + 
                     DATABASE_HOST + 
+                    DATABASE_PUERTO + 
                     DATABASE_DB + 
                     "?useLegacyDatetimeCode=false&serverTimezone=UTC" + 
                     "&user=" + 
